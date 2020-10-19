@@ -1,0 +1,96 @@
+<!-- <app-guest-nav>
+  <div style="height: 100vh;">
+    <mat-toolbar color="primary" class="nav-bar">
+
+        <div class="nav-small">
+            <div fxShow="true" fxHide.gt-sm="true">
+                <button mat-button  (click)="sidenav.toggle()">
+                  <i class="fas fa-bars"></i>
+                </button>
+
+            </div>
+            <span></span>
+            <span> Kimmie Works</span>
+        </div>
+
+
+      <span class="example-spacer"></span>
+
+      <div fxShow="true" fxHide.lt-md="true">
+        The following menu items will be hidden on both SM and XS screen sizes
+        <a [routerLink]="['/home']" routerLinkActive="router-link-active"  mat-button> <i class="fa fa-home"></i> &nbsp;Home</a>
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active"  mat-button><i class="fa fa-sign-in-alt"></i>&nbsp;Login</a>
+        <button mat-flat-button [matMenuTriggerFor]="appMenu"><i class="fa fa-user-plus"></i>
+          Register
+            <mat-icon><i class="fa fa-register"></i></mat-icon>
+        </button>
+
+        <mat-menu #appMenu="matMenu">
+          <a [routerLink]="['/register']" routerLinkActive="router-link-active"  mat-button>Freelancer</a><br>
+          <a [routerLink]="['/register']" routerLinkActive="router-link-active"  mat-button>Client</a>
+        </mat-menu>
+
+
+      </div>
+    </mat-toolbar>
+
+
+    <mat-sidenav-container fxFlexFill class="example-container">
+      <mat-sidenav #sidenav fxLayout="column">
+        <div fxLayout="column">
+          <a (click)="sidenav.toggle()" href="#" mat-button> <i class="fa fa-times"></i></a>
+          <a [routerLink]="['/home']" routerLinkActive="router-link-active"  mat-button><i class="fa fa-home"></i> &nbsp;Home</a>
+          <a [routerLink]="['/login']" routerLinkActive="router-link-active"  mat-button> <i class="fa fa-sign-in-alt"></i>&nbsp; Login</a>
+          <a [routerLink]="['/register']" routerLinkActive="router-link-active"  mat-button> <i class="fa fa-user-plus"></i> &nbsp;Register</a>
+        </div>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlexFill>
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+
+</app-guest-nav> -->
+
+<app-guest-nav>
+  <div class="container">
+    <nav class="top-nav text-center">
+      <h2>Account Login</h2>
+    </nav>
+    <div class="alert alert-danger text-center" role="alert" *ngIf="authError">
+        {{authError}}
+    </div>
+    <mat-card  class="pt-5">
+        <div class="mx-auto text-center login-form">
+          <form [formGroup]="loginForm">
+            <mat-card-content>
+
+                    <div class="form-group text-center">
+                        <mat-form-field class="_form-control">
+                          <mat-label>Enter email</mat-label>
+                          <input matInput type="email" placeholder="Email" formControlName="email">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="form-group text-center">
+                       <mat-form-field class="_form-control">
+                        <mat-label>Enter password</mat-label>
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                      </mat-form-field>
+                    </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary"
+              type="submit" (click)="onSubmit()" [disabled]="!loginForm.valid" >Login</button>
+              <br>
+              <div class="mt-2">
+                  <button mat-button [routerLink]="['/login/password-recovery']" >Forgot Password ?</button>
+              </div>
+            </mat-card-actions>
+             </form>
+        </div>
+    </mat-card>
+  </div>
+</app-guest-nav>

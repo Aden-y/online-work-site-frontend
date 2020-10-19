@@ -1,0 +1,35 @@
+.nav-bar{
+  justify-content: space-between;
+}
+.nav-small{
+  display: flex;
+}
+
+.main_{
+  background-image: url('https://images.pexels.com/photos/3740634/pexels-photo-3740634.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-size: cover;
+  color: black;
+}
+
+.brand-a, .brand-b {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-transform: uppercase;
+}
+
+.brand-a {
+  color: #c2185b;
+}
+
+.brand-b{
+  color: #103818;
+}
+.welcome{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.btn-get-started {
+  font-size: 32px;
+  padding: 15px;
+}
+
+

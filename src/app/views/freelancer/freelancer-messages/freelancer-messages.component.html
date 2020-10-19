@@ -1,0 +1,68 @@
+<app-freelancer-nav>
+  <div class="container">
+      <nav class="top-nav text-center mt-2">
+        <h3>Messages</h3>
+      </nav>
+
+      <!-- Display Messages in list format -->
+     <mat-card>
+      <div class="row">
+        <div [class.col-lg-12]="!opennedConversation" [class.col-lg-6]="opennedConversation">
+         <mat-card class="example-card">
+           <mat-card-header>
+             <mat-card-title>Conversations</mat-card-title>
+             <mat-card-subtitle>200</mat-card-subtitle>
+           </mat-card-header>
+           <mat-card-content>
+             <mat-list>
+               <h3 mat-subheader>New</h3>
+               <mat-list-item *ngFor="let folder of folders" class="list-item-link">
+                 <mat-icon mat-list-icon class="mr-2">
+                   <div mat-card-avatar class="example-header-image"></div>
+                 </mat-icon>
+                 <h6 mat-line>{{folder.name}}</h6>
+                 <p mat-line> {{folder.updated | date}} </p>
+               </mat-list-item>
+
+               <h3 mat-subheader>Seen</h3>
+               <mat-list-item *ngFor="let folder of folders" (click)="openConversation()" class="list-item-link">
+                 <mat-icon mat-list-icon class="mr-2">
+                   <div mat-card-avatar class="example-header-image"></div>
+                 </mat-icon>
+                 <h6 mat-line>{{folder.name}}</h6>
+                 <p mat-line> {{folder.updated | date}} </p>
+               </mat-list-item>
+             </mat-list>
+           </mat-card-content>
+
+         </mat-card>
+        </div>
+
+        <div class="col-lg-6" *ngIf="opennedConversation">
+         <mat-card class="example-card">
+           <mat-card-header>
+             <div mat-card-avatar class="example-header-image"></div>
+             <mat-card-title> Joakim Adeny <button mat-button matTooltip="Close conversation" (click)="closeConversation()"><i class="fa fa-times ml-2" aria-hidden="true"></i></button></mat-card-title>
+             <mat-card-subtitle>126</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+           <mat-card-content>
+             <p>
+               The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+               A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+               bred for hunting.
+             </p>
+           </mat-card-content>
+           <mat-card-actions>
+             <button mat-button>LIKE</button>
+             <button mat-button>SHARE</button>
+           </mat-card-actions>
+         </mat-card>
+        </div>
+      </div>
+     </mat-card>
+
+
+
+  </div>
+</app-freelancer-nav>

@@ -1,0 +1,30 @@
+<app-freelancer-nav>
+  <div class="container">
+      <nav class="top-nav text-center mt-2">
+        <h3>Notifications</h3>
+      </nav>
+      <mat-list>
+        <h3 mat-subheader>New</h3>
+        <mat-list-item *ngFor="let folder of folders">
+          <mat-icon mat-list-icon class="mr-2">
+            <div mat-card-avatar class="example-header-image"></div>
+          </mat-icon>
+          <h6 mat-line>{{folder.name}}</h6>
+          <p mat-line> {{folder.updated | date}} </p>
+        </mat-list-item>
+
+        <h3 mat-subheader>Seen</h3>
+        <mat-list-item *ngFor="let folder of folders" (click)="openNotification()" class="list-item-link">
+          <mat-icon mat-list-icon class="mr-2">
+            <div mat-card-avatar class="example-header-image"></div>
+          </mat-icon>
+          <h6 mat-line>{{folder.name}}</h6>
+          <p mat-line> {{folder.updated | date}} </p>
+        </mat-list-item>
+
+      </mat-list>
+
+
+
+  </div>
+</app-freelancer-nav>

@@ -1,0 +1,166 @@
+<app-client-nav>
+
+  <div class="container">
+    <nav class="top-nav text-center mt-2">
+      <h3>Post Job</h3>
+    </nav>
+    <div class="alert alert-danger text-center" role="alert" *ngIf="formError">
+      {{formError}}
+    </div>
+
+    <div class="alert alert-success text-center" role="alert" *ngIf="serverMessage">
+      {{serverMessage}}
+    </div>
+    <mat-vertical-stepper [linear]="linear" #stepper>
+
+      <mat-step [stepControl]="jobDetailsForm">
+        <ng-template matStepLabel>Job details</ng-template>
+        <form [formGroup]="jobDetailsForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <mat-form-field class="_form-control">
+              <mat-label>Title/Topic</mat-label>
+              <input matInput type="text" placeholder="Job title/topic" formControlName="title">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="_form-control">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" id="description" rows="10"
+                placeholder="Give a description of the work to be done">
+                  </textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-2">Attach files</label>
+            <div class="col-md-8 row">
+              <input (change)="onFilesChange($event)" type="file" id="files" multiple>
+            </div>
+          </div>
+        </form>
+
+        <div class="action-buttons">
+          <button mat-raised-button matStepperPrevious class="btn-secondary m-2"> <i class="fa fa-arrow-left"></i>&nbsp;
+            Back</button>
+          <button [disabled]="jobDetailsForm.invalid" mat-raised-button matStepperNext class="m-2" color="primary"> <i
+              class="fa fa-arrow-right"></i>
+            &nbsp;Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="jobInstructionsForm">
+        <ng-template matStepLabel>More Instructions</ng-template>
+        <form [formGroup]="jobInstructionsForm">
+          <div class="form-group">
+            <mat-form-field class="_form-control">
+              <mat-label>Bidding Instructions</mat-label>
+              <textarea matInput formControlName="biddinginstructions" id="biddinginstructions" rows="10"
+                placeholder="Requirements for the bidding of this job.">
+                  </textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-group row">
+
+
+            <div class="col-lg-4">
+              <mat-form-field class="_form-control">
+                <mat-label>Required experience level</mat-label>
+                <mat-select formControlName="experiencelevel" class="_form-control">
+                  <mat-option value="">Select level</mat-option>
+                  <mat-option *ngFor="let level of levels" value="{{level.level}}">{{level.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field class="_form-control">
+                <mat-label>Required rating</mat-label>
+                <mat-select formControlName="rating" class="_form-control">
+                  <mat-option *ngFor="let rating of ratings" value="{{rating}}">{{rating}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="_form-control">
+                <mat-label>Submission deadline</mat-label>
+                <input matInput type="datetime-local" formControlName="deadline">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button mat-raised-button matStepperPrevious class="btn-secondary m-2"> <i class="fa fa-arrow-left"></i>&nbsp;
+              Back</button>
+            <button [disabled]="jobInstructionsForm.invalid" mat-raised-button matStepperNext class="m-2" color="primary"> <i
+                class="fa fa-arrow-right"></i>
+              &nbsp;Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="jobSkillsForm" [completed]="false">
+        <ng-template matStepLabel>Required Skills</ng-template>
+        <form [formGroup]="jobSkillsForm">
+          <div class="mt-2">
+            <mat-form-field class="skills-chip-list">
+              <mat-chip-list #chipList aria-label="Skills selected">
+                <mat-chip
+                  *ngFor="let skill of skills"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="remove(skill)">
+                  {{skill}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input
+                  placeholder="Enter skill"
+                  #skillsInput
+                  [formControl]="skillsCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+                  {{skill}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+          </div>
+
+          <p id="skillsError" class="text-center text-danger" *ngIf="skills.length == 0">
+            Please select required skills for the job
+          </p>
+
+          <div class="action-buttons">
+            <button mat-raised-button matStepperPrevious class="btn-secondary m-2"> <i class="fa fa-arrow-left"></i>&nbsp;
+              Back</button>
+            <button [disabled]="jobSkillsForm.invalid || skills.length == 0" mat-raised-button matStepperNext class="m-2" color="primary"> <i
+                class="fa fa-arrow-right"></i>
+              &nbsp;Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="jobBudgetForm">
+        <ng-template matStepLabel>Complete</ng-template>
+        <form [formGroup]="jobBudgetForm">
+          <div class="form-group">
+            <mat-form-field class="_form-control">
+              <mat-label>Your budget</mat-label>
+              <input matInput type="number" placeholder="How much you are willing to pay for the job" formControlName="budget" min="0.0">
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <button [disabled]="mainForm.invalid" (click)="onSubmit()" mat-raised-button color="primary">Upload
+              Job</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+</app-client-nav>

@@ -1,0 +1,142 @@
+<app-client-nav *ngIf="role == 'Client'">
+  <div class="container">
+    <nav class="top-nav text-center mt-2">
+      <h3>Order Messages</h3>
+      <p>{{order}}</p>
+    </nav>
+
+    <mat-card>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="_nav p-2">Conversations</div>
+          <mat-list>
+            <mat-list-item class="conversation" *ngFor="let conversation of messages" (click)="onSelect(conversation)">
+              <mat-icon mat-list-icon class="mr-2">
+                <div mat-card-avatar class="example-header-image"></div>
+              </mat-icon>
+              <h6 mat-line>{{conversation.name}}</h6>
+              <small mat-line class="text-gray text-small">{{conversation.messages[0].text}}</small>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="text-center" *ngIf="!selected">Select a conversation to see details.</div>
+          <div *ngIf="selected">
+            <div class="_nav p-2">{{selected.name}}</div>
+              <!-- <div class="message" *ngFor="let message of messages"></div> -->
+              <mat-card class="message p-2" *ngFor="let message of selected.messages" [class.outgoing]="message.type == 'Outgoing'">
+                <p class="text">
+                  {{message.text}}
+                <br>
+                  <small class="time">
+                    {{message.time}}
+                  </small>
+                </p>
+              </mat-card>
+
+
+            <div class="mt-2 mb-2">
+              <form  [formGroup]="messageForm" enctype="multipart/form-data">
+                <div class="form-group">
+                  <mat-form-field class="_form-control">
+                    <mat-label>Enter message</mat-label>
+                  <textarea formControlName="message" placeholder="Type message.." matInput style="width: 100%;" rows="5"></textarea>
+                  </mat-form-field>
+                  <div *ngIf="error">
+                    <small class="text-danger">{{error}}</small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="file" multiple (change)="onChooseFiles($event)" id="files" hidden>
+                  <div *ngIf="files.value" class="attachents p-2">
+                      <ol>
+                          <li *ngFor="let file of files.value">{{file.name}}</li>
+                      </ol>
+                      <div>
+                        <button mat-raised-button color="primary" (click)="remove()">Remove</button>
+                      </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="text-right">
+                <button mat-raised-button (click)="triggerFile()" class="btn-sm" color="primary" matTooltip="Attach files">
+                  <i class="fa fa-paperclip"></i>
+                </button>
+                &nbsp;
+                <button mat-raised-button color="primary" [disabled]="message.value.trim()==='' && files.value === null"
+                 (click)="sendMessage()" ><i class="fa fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</app-client-nav>
+
+<app-freelancer-nav *ngIf="role == 'Freelancer'">
+  <div class="container">
+    <nav class="top-nav text-center mt-2">
+      <h3>Order Messages</h3>
+      <p>{{order}}</p>
+    </nav>
+
+    <mat-card>
+          <div class="text-center" *ngIf="!messages">Conversations will appear here.</div>
+          <div *ngIf="messages" class="mx-auto msg-wrapper">
+            <div class="_nav p-2">Client</div>
+              <!-- <div class="message" *ngFor="let message of messages"></div> -->
+             <div class="messages mx-auto">
+              <mat-card class="message p-2" *ngFor="let message of messages" [class.outgoing]="message.type == 'Outgoing'">
+                <p class="text">
+                  {{message.text}}
+                <br>
+                  <small class="time">
+                    {{message.time}}
+                  </small>
+                </p>
+              </mat-card>
+             </div>
+
+
+            <div class="mt-2 mb-2">
+              <form  [formGroup]="messageForm" enctype="multipart/form-data">
+                <div class="form-group">
+                  <mat-form-field class="_form-control">
+                    <mat-label>Enter message</mat-label>
+                  <textarea formControlName="message" placeholder="Type message.." matInput style="width: 100%;" rows="5"></textarea>
+                  </mat-form-field>
+                  <div *ngIf="error">
+                    <small class="text-danger">{{error}}</small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="file" multiple (change)="onChooseFiles($event)" id="files" hidden>
+                  <div *ngIf="files.value" class="attachents p-2">
+                      <ol>
+                          <li *ngFor="let file of files.value">{{file.name}}</li>
+                      </ol>
+                      <div>
+                        <button mat-raised-button color="primary" (click)="remove()">Remove</button>
+                      </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="text-right">
+                <button mat-raised-button (click)="triggerFile()" class="btn-sm" color="primary" matTooltip="Attach files">
+                  <i class="fa fa-paperclip"></i>
+                </button>
+                &nbsp;
+                <button mat-raised-button color="primary" [disabled]="message.value.trim()==='' && files.value === null"
+                 (click)="sendMessage()" ><i class="fa fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </div>
+    </mat-card>
+  </div>
+
+</app-freelancer-nav>

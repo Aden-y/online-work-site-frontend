@@ -1,0 +1,13 @@
+<div class="text-center">
+  <h1 class="text-center" mat-dialog-title><i class="fa fa-upload">&nbsp;Upload Submission</i></h1>
+  <h6>Job ID : {{data.id}}</h6>
+  <p>{{data.topic}}</p>
+  <div mat-dialog-content class="pb-5 pt-2">
+  <input type="file" multiple (change)="onChooseFile($event)" id="inputFile" hidden>
+  <button (click)="triger()" mat-raised-button ><i class="fa fa-paperclip"></i>&nbsp;Choose file</button><span class="ml-2" *ngIf="!files">No file chosen.</span>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onCancel()">Cancel</button>
+  <button color="primary" (click)="onSubmit()" [disabled]="!files" mat-raised-button [mat-dialog-close]="data.animal" cdkFocusInitial>Submit</button>
+</div>
+</div>

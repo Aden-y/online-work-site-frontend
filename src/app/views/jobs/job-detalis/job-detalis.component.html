@@ -1,0 +1,53 @@
+<app-freelancer-nav>
+<div class="container">
+  <nav class="top-nav text-center m-2">
+    <h3>Job Details</h3>
+  </nav>
+
+  <mat-card *ngIf="job">
+      <mat-card-title >{{job.topic}}</mat-card-title>
+    <mat-card-content>
+      <h6>Description:</h6>
+      <p>
+        {{job.description}}
+      </p>
+      <div class="row mt-2">
+        <div class="col-6">
+          <h6>Rating Required: {{job.rating}}</h6>
+        </div>
+        <div class="col-6">
+          <h6>Experience level: {{job.experience}}</h6>
+        </div>
+      </div>
+      <div class="mt-2">
+        <h6>Skillset</h6>
+        <div>
+          <mat-chip-list aria-label="Skillset">
+            <mat-chip  *ngFor="let skill of job.skills" color="primary" selected>{{skill}}</mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <div class="mt-2">
+        <h6>Files  Attached</h6>
+        <small *ngIf="job.files.length == 0">
+            No files
+        </small>
+        <div>
+            <button  matTooltip="Download attachment" *ngFor="let file of job.files"
+                     (click)="download(file.id, file.path)"
+                     mat-raised-button color="primary" class="m-2">
+              <i class="fa fa-download mr-2"></i>
+              {{file.path}}
+            </button>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-accordion *ngIf="job.available">
+        <app-order-message [job]="job"></app-order-message>
+        <app-order-bidding [job]="job"></app-order-bidding>
+       </mat-accordion>
+    </mat-card-actions>
+  </mat-card>
+</div>
+</app-freelancer-nav>

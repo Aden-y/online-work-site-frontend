@@ -1,0 +1,35 @@
+<mat-expansion-panel class="mt-2">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+        Bid now
+    </mat-panel-title>
+    <mat-panel-description >
+      Place a bid to complete the job.
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <h6>Bidding instructions</h6>
+    <p>{{job.instructions}}</p>
+  <h6>Client Budget</h6>
+    <p>{{job.budget}}</p>
+    <div>
+      <div class="alert alert-success" *ngIf="serverResponse">
+          {{serverResponse}}
+      </div>
+      <form  [formGroup]="biddingForm">
+       <div class="form-group">
+         <mat-form-field class="_form-control">
+          <mat-label>Your bidding price:</mat-label>
+          <input matInput type="number" formControlName="amount" >
+        </mat-form-field>
+       </div>
+       <div class="form-group">
+         <mat-form-field class="_form-control">
+          <mat-label>Any additional description:</mat-label>
+          <textarea matInput formControlName="description" cols="30" rows="10"></textarea>
+        </mat-form-field>
+       </div>
+       <button (click)="onSubmit()" [disabled]="biddingForm.invalid" mat-raised-button color="primary">Submit bid</button>
+
+      </form>
+     </div>
+</mat-expansion-panel>

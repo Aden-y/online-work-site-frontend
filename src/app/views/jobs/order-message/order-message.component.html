@@ -1,0 +1,22 @@
+ <mat-expansion-panel class="mt-2">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+        Contact employer
+    </mat-panel-title>
+    <mat-panel-description >
+      Send employer a message/inquiry
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div>
+    <div class="alert alert-success" *ngIf="serverResponse">{{serverResponse}}</div>
+      <form [formGroup]="messageForm">
+          <div class="form-group">
+          <mat-form-field class="_form-control">
+            <mat-label>Enter the message</mat-label>
+            <textarea matInput formControlName="content" cols="30" rows="10"></textarea>
+          </mat-form-field>
+        </div>
+          <button (click)="onSubmit()" [disabled]="messageForm.invalid" mat-raised-button color="primary">Send message</button>
+      </form>
+  </div>
+</mat-expansion-panel>

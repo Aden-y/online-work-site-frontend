@@ -1,0 +1,54 @@
+<div *ngIf="!jobs" class="text-center">
+  <p >
+    Loading jobs. Please wait...
+  </p>
+</div>
+<mat-accordion>
+  <cdk-virtual-scroll-viewport itemSize="5" style="height: 400px;">
+    <mat-expansion-panel *cdkVirtualFor="let job of jobs | async" >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{job.topic}}
+        </mat-panel-title>
+        <mat-panel-description >
+          Expert |
+          <span class="mr-2">
+            <i class="material-icons star">stars</i>
+            <i class="material-icons star">stars</i>
+            <i class="material-icons star">stars</i>
+            <i class="material-icons star">stars</i>
+            <i class="material-icons star">stars</i>
+          </span>
+          <span class="ml-5">
+            <i class="fa fa-clock" class="mr-2"></i>
+            Deadline: {{job.deadline}}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+        <div>
+          <h6>Description:</h6>
+        <p>
+          {{job.description}}
+        </p>
+        <h6>Files</h6>
+        <div>
+          <span class="mr-2">Fil1</span>
+          <span class="mr-2">Fil2</span>
+        </div>
+        <h6>Job specialities</h6>
+        <div>
+            <span class="badge badge-secondary">Java</span>
+        </div>
+
+        <mat-accordion>
+         <app-order-message [job]="job"></app-order-message>
+         <app-order-bidding [job]="job"></app-order-bidding>
+        </mat-accordion>
+
+
+        </div>
+    </mat-expansion-panel>
+  </cdk-virtual-scroll-viewport>
+
+</mat-accordion>

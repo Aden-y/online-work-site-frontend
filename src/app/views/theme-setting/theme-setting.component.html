@@ -1,0 +1,19 @@
+<button [matMenuTriggerFor]="themeMenu" mat-button matTooltip="Custom theme settings"><i class="fa fa-cog" aria-hidden="true"></i></button>
+<mat-menu #themeMenu="matMenu" yPosition="below">
+  <mat-card>
+    <mat-card-header>
+      <label>Pick your favorite theme</label>
+    </mat-card-header>
+    <mat-card-content>
+
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="favoriteTheme">
+      <mat-radio-button class="example-radio-button" *ngFor="let theme of themes" [value]="theme">
+        {{theme}}
+      </mat-radio-button>
+    </mat-radio-group>
+    </mat-card-content>
+  </mat-card>
+</mat-menu>

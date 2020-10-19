@@ -1,0 +1,23 @@
+.nav-bar{
+  justify-content: space-between;
+}
+.nav-small{
+  display: flex;
+}
+.container{
+  padding-top: 30px;
+}
+.back-button{
+margin-right: 20px;
+}
+.action-buttons{
+  margin-top: 25px;
+}
+
+.skills-chip-list {
+  width: 100%;
+}
+
+._form-control {
+  width: 100%;
+}

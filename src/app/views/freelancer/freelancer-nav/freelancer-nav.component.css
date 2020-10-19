@@ -1,0 +1,39 @@
+/* .sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+} */
+
+.nav-bar{
+  justify-content: space-between;
+}
+.nav-small{
+  display: flex;
+}
+.container{
+  padding-top: 30px;
+}
+.back-button{
+margin-right: 20px;
+}
+.action-buttons{
+  margin-top: 25px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+

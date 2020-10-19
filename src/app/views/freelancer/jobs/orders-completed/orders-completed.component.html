@@ -1,0 +1,66 @@
+<app-freelancer-nav>
+  <div class="container">
+    <nav class="top-nav text-center mt-2">
+      <h3>Jobs Completed</h3>
+    </nav>
+
+    <div>
+      <div *ngIf="!dataSource.data || dataSource.data.length < 1" class="text-center">
+        Jobs completed will appear here.
+      </div>
+      <div *ngIf="dataSource.data.length  > 0">
+            <div class="form-group">
+              <mat-form-field class="_form-control">
+                <mat-label>Filter Jobs</mat-label>
+               <input matInput type="search"  (keyup)="applyFilter($event)" placeholder="Search">
+              </mat-form-field>
+            </div>
+
+
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" matSort  style="width: 100%;">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="topic">
+                    <th mat-header-cell *matHeaderCellDef> Topic </th>
+                    <td mat-cell *matCellDef="let element"> {{element.topic}} </td>
+                  </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="price" mat-sort-header>
+                  <th mat-header-cell *matHeaderCellDef> Price </th>
+                  <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                </ng-container>
+
+
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="deadline" mat-sort-header>
+                  <th mat-header-cell *matHeaderCellDef> Submitted on </th>
+                  <td mat-cell *matCellDef="let element"> {{element.deadline}} </td>
+                </ng-container>
+
+                 <!-- Symbol Column -->
+                 <ng-container matColumnDef="freelancer_id">
+                  <th mat-header-cell *matHeaderCellDef> Details </th>
+                  <td mat-cell *matCellDef="let element"><a href="/jobs/details/{{element.id}}">Details</a></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+
+        </div>
+        </div>
+
+  </div>
+</app-freelancer-nav>
